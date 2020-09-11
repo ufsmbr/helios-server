@@ -6,37 +6,34 @@ Ben Adida
 (ben@adida.net)
 """
 
-from django.db import models, transaction
-import json
-from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
-from django.core.mail import send_mail
-from django.utils import timezone
+import datetime
 
-import datetime, logging, uuid, random, io
 import bleach
-
-from crypto import electionalgs, algs, utils
-from helios import utils as heliosutils
-import helios.views
-
-from helios import datatypes
-
-
-# useful stuff in helios_auth
-from helios_auth.models import User, AUTH_SYSTEMS
-from helios_auth.jsonfield import JSONField
-from helios.datatypes.djangofield import LDObjectField
-
-import csv, copy
+import copy
+import csv
+import io
+import random
 import unicodecsv
+import uuid
+from django.conf import settings
+from django.db import models, transaction
+from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
+from crypto import algs, utils
+from helios import datatypes
+from helios import utils as heliosutils
+from helios.datatypes.djangofield import LDObjectField
+# useful stuff in helios_auth
+from helios_auth.jsonfield import JSONField
+from helios_auth.models import User, AUTH_SYSTEMS
+
 
 class HeliosModel(models.Model, datatypes.LDObjectContainer):
   class Meta:
     abstract = True
 
 class Election(HeliosModel):
-  admin = models.ForeignKey(User)
+  admin = models.ForeignKey(User, on_delete=models.CASCADE)
   
   uuid = models.CharField(max_length=50, null=False)
 
@@ -53,7 +50,7 @@ class Election(HeliosModel):
   ELECTION_TYPES = (
     ('election', _('Election')),
     ('referendum', _('Referendum'))
-    )
+  )
 
   election_type = models.CharField(max_length=250, null=False, default='election', choices = ELECTION_TYPES)
   private_p = models.BooleanField(default=False, null=False)
@@ -151,7 +148,7 @@ class Election(HeliosModel):
     app_label = 'helios'
 
   def __unicode__(self):
-    return self.name
+        return self.name
 
   # metadata for the election
   @property
@@ -347,8 +344,9 @@ class Election(HeliosModel):
     """
     has voting begun? voting begins if the election is frozen, at the prescribed date or at the date that voting was forced to start
     """
-    return self.frozen_at != None and (self.voting_starts_at == None or (timezone.now() >= (self.voting_started_at or self.voting_starts_at)))
-    
+    return self.frozen_at != None and (self.voting_starts_at == None or (
+                timezone.now() >= (self.voting_started_at or self.voting_starts_at)))
+
   def voting_has_stopped(self):
     """
     has voting stopped? if tally computed, yes, otherwise if we have passed the date voting was manually stopped at,
@@ -383,7 +381,7 @@ class Election(HeliosModel):
     if self.voter_set.count() == 0 and not self.openreg:
       issues.append({
           "type" : "voters",
-          "action" : _("enter your voter list (or open registration to the public)")
+          "action": _("enter your voter list (or open registration to the public)")
           })
 
     return issues    
@@ -507,7 +505,7 @@ class Election(HeliosModel):
     election is frozen when the voter registration, questions, and trustees are finalized
     """
     if len(self.issues_before_freeze) > 0:
-      raise Exception(_("cannot freeze an election that has issues"))
+        raise Exception(_("cannot freeze an election that has issues"))
 
     self.frozen_at = timezone.now()
     
@@ -517,7 +515,7 @@ class Election(HeliosModel):
     self.set_eligibility()
     
     # public key for trustees
-    trustees = Trustee.get_by_election(self)
+    trustees = list(Trustee.get_by_election(self))
     combined_pk = trustees[0].public_key
     for t in trustees[1:]:
       combined_pk = combined_pk * t.public_key
@@ -574,7 +572,7 @@ class Election(HeliosModel):
     trustee.save()
 
   def append_log(self, text):
-    item = ElectionLog(election = self, log=text, at=timezone.now())
+    item = ElectionLog(election=self, log=text, at=timezone.now())
     item.save()
     return item
 
@@ -583,6 +581,7 @@ class Election(HeliosModel):
 
   @property
   def url(self):
+    import helios.views
     return helios.views.get_election_url(self)
 
   def init_tally(self):
@@ -658,7 +657,7 @@ class Election(HeliosModel):
 
     return prettified_result
 
-    
+
 class ElectionLog(models.Model):
   """
   a log of events for an election
@@ -668,7 +667,7 @@ class ElectionLog(models.Model):
   VOTER_FILE_ADDED = "voter file added"
   DECRYPTIONS_COMBINED = "decryptions combined"
 
-  election = models.ForeignKey(Election)
+  election = models.ForeignKey(Election, on_delete=models.CASCADE)
   log = models.CharField(max_length=500)
   at = models.DateTimeField(auto_now_add=True)
 
@@ -703,7 +702,7 @@ class VoterFile(models.Model):
   # path where we store voter upload 
   PATH = settings.VOTER_UPLOAD_REL_PATH
 
-  election = models.ForeignKey(Election)
+  election = models.ForeignKey(Election, on_delete=models.CASCADE)
 
   # we move to storing the content in the DB
   voter_file = models.FileField(upload_to=PATH, max_length=250,null=True)
@@ -796,7 +795,7 @@ class VoterFile(models.Model):
 
     
 class Voter(HeliosModel):
-  election = models.ForeignKey(Election)
+  election = models.ForeignKey(Election, on_delete=models.CASCADE)
   
   # let's link directly to the user now
   # FIXME: delete this as soon as migrations are set up
@@ -808,7 +807,7 @@ class Voter(HeliosModel):
 
   # for users of type password, no user object is created
   # but a dynamic user object is created automatically
-  user = models.ForeignKey('helios_auth.User', null=True)
+  user = models.ForeignKey('helios_auth.User', null=True, on_delete=models.CASCADE)
 
   # if user is null, then you need a voter login ID and password
   voter_login_id = models.CharField(max_length = 100, null=True)
@@ -824,7 +823,6 @@ class Voter(HeliosModel):
                        null=True)
   vote_hash = models.CharField(max_length = 100, null=True)
   cast_at = models.DateTimeField(auto_now_add=False, null=True)
-
 
   class Meta:
     unique_together = (('election', 'voter_login_id'))
@@ -988,31 +986,30 @@ class Voter(HeliosModel):
   def metadata(self):
     self.user = self.get_user()
     return {
-      'voter_email': self.voter_email,
-      'uuid': self.uuid,
-      'voter_name': self.voter_name,
-      'vote_hash': self.vote_hash,
-      'cast_at': self.cast_at,
-      'alias': self.alias,
-      'user_id': self.user.user_id,
-      'election id': self.election.id,
-      'election name': self.election.name,
-      'election url': self.election.url
+        'voter_email': self.voter_email,
+        'uuid': self.uuid,
+        'voter_name': self.voter_name,
+        'vote_hash': self.vote_hash,
+        'cast_at': self.cast_at,
+        'alias': self.alias,
+        'user_id': self.user.user_id,
+        'election id': self.election.id,
+        'election name': self.election.name,
+        'election url': self.election.url
+    }
 
-      }
+  @property
+  def pretty_name(self):
+    if self.voter_name:
+      return self.voter_name
 
-    @property
-    def pretty_name(self):
-        if self.voter_name:
-            return self.voter_name
+    if self.voter_email:
+      return self.voter_email
 
-        if self.voter_email:
-            return self.voter_email
+    if self.name:
+      return self.name
 
-        if self.name:
-            return self.name
-
-        return self.voter_login_id
+    return self.voter_login_id
 
   def store_vote(self, cast_vote):
     # only store the vote if it's cast later than the current one
@@ -1030,7 +1027,7 @@ class Voter(HeliosModel):
   
 class CastVote(HeliosModel):
   # the reference to the voter provides the voter_uuid
-  voter = models.ForeignKey(Voter)
+  voter = models.ForeignKey(Voter, on_delete=models.CASCADE)
   
   # the actual encrypted vote
   vote = LDObjectField(type_hint = 'legacy/EncryptedVote')
@@ -1140,7 +1137,7 @@ class AuditedBallot(models.Model):
   """
   ballots for auditing
   """
-  election = models.ForeignKey(Election)
+  election = models.ForeignKey(Election, on_delete=models.CASCADE)
   raw_vote = models.TextField()
   vote_hash = models.CharField(max_length=100)
   added_at = models.DateTimeField(auto_now_add=True)
@@ -1167,7 +1164,7 @@ class AuditedBallot(models.Model):
 
 
 class Trustee(HeliosModel):
-  election = models.ForeignKey(Election)
+  election = models.ForeignKey(Election, on_delete=models.CASCADE)
   
   uuid = models.CharField(max_length=50)
   name = models.CharField(max_length=200)
@@ -1240,4 +1237,3 @@ class Trustee(HeliosModel):
     """
     # verify_decryption_proofs(self, decryption_factors, decryption_proofs, public_key, challenge_generator):
     return self.election.encrypted_tally.verify_decryption_proofs(self.decryption_factors, self.decryption_proofs, self.public_key, algs.EG_fiatshamir_challenge_generator)
-    
