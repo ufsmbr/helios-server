@@ -1015,17 +1015,12 @@ msgstr "registrar!"
 
 #: helios/templates/election_tallied.html:6
 #: server_ui/templates/election_tallied.html:5
-#, fuzzy, python-format
-#| msgid ""
-#| " \n"
-#| "  Election %(election.name)s Already Tallied\n"
-#| "  "
 msgid ""
 "\n"
 "  Election %(election.name)s Already Tallied\n"
 "  "
 msgstr ""
-" \n"
+"\n"
 "  Eleição %(election.name)s já apurada\n"
 "  "
 
