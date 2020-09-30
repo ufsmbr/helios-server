@@ -179,7 +179,7 @@ Por fim, você precisará executar o script `reset.sh` (não faça como root) qu
 
 A interface do Helios foi traduzida para o português e assim é necessário que compile os arquivos de tradução, caso queira usar a tradução que fizemos. Execute o seguinte comando a partir do diretório do Helios:
 ```bash
-python manage.py compilemessages
+python manage.py compilemessages -l pt_BR
 ```
 
 Após a compilação, arquivos `.mo` devem ter sido gerados em `locale/pt_BR/LC_MESSAGES`
@@ -432,7 +432,10 @@ Você pode logar no container e verificar as configurações e também pode, sup
     - [Arquivos postgres](docker/db/init.sql)
     Script de inicialização da base de dados a ser usada pelo helios.
 
-Antes de executar o docker-compose, você deve criar um arquivo .env na raiz deste projeto, contendo as seguintes variáveis de ambiente:
+
+Antes de executar o docker-compose, você pode criar um arquivo .env na raiz deste projeto, contendo as seguintes variáveis de ambiente listadas abaixo. Essa configuração é boa prática, mas não é obrigatória, você pode deixar os valores informados no próprio arquivo [settings.py](settings.py).
+
+>**Atenção**: como o celery está rodando supervisionado pelo supervisor neste caso, por questões de funcionamento de subprocessos e variáveis de ambiente, essas variáveis acabam não ficando disponíveis no contexto de execução das tarefas pelo celery e então elas devem estar configuradas, especialmente as de email, no próprio settings.py. Ver mais detalhes em [Subprocess Environment](http://supervisord.org/subprocess.html#subprocess-environment) ou então configuradas como estão na indicação do manual do supervisor, como parâmetro, no arquivo de configuração do supervisor. Se você tiver uma ideia melhor, por favor compartilhe!
 
         DEBUG=1
         ALLOWED_HOSTS='localhost,192.168.15.7'
