@@ -1,3 +1,27 @@
+- [Sistema de votação Helios como serviço de TIC](#sistema-de-votação-helios-como-serviço-de-tic)
+  - [Personalizações feitas pelo IFSC no Helios](#personalizações-feitas-pelo-ifsc-no-helios)
+- [Guia de instalação e configuração do Helios](#guia-de-instalação-e-configuração-do-helios)
+  - [Instalação dos pacotes necessários (Ubuntu 18.04)](#instalação-dos-pacotes-necessários-ubuntu-1804)
+    - [Softwares necessários](#softwares-necessários)
+  - [Preparação do ambiente para instalação do Helios](#preparação-do-ambiente-para-instalação-do-helios)
+    - [Configuração do banco de dados PostgreSQL](#configuração-do-banco-de-dados-postgresql)
+    - [Compilando arquivos com as traduções para português](#compilando-arquivos-com-as-traduções-para-português)
+    - [Configuração dos módulos de autenticação](#configuração-dos-módulos-de-autenticação)
+      - [Autenticação em uma base LDAP](#autenticação-em-uma-base-ldap)
+    - [Testando a instalação em ambiente de desenvolvimento](#testando-a-instalação-em-ambiente-de-desenvolvimento)
+    - [Habilitando usuário com permissão de gestor de eleições](#habilitando-usuário-com-permissão-de-gestor-de-eleições)
+  - [Preparando ambiente de produção](#preparando-ambiente-de-produção)
+    - [Configuração apache](#configuração-apache)
+    - [Celery](#celery)
+  - [Configurações Gerais:](#configurações-gerais)
+  - [Outras personalizações feitas no Helios](#outras-personalizações-feitas-no-helios)
+    - [Habilitar Interface de Administração do Django](#habilitar-interface-de-administração-do-django)
+    - [Listar eleições na página inicial do Helios](#listar-eleições-na-página-inicial-do-helios)
+    - [Autenticação federada via shibboleth](#autenticação-federada-via-shibboleth)
+      - [Configuração da autenticação com o módulo apache shibboleth2](#configuração-da-autenticação-com-o-módulo-apache-shibboleth2)
+      - [Habilitando instituições da federação para usarem o serviço Helios](#habilitando-instituições-da-federação-para-usarem-o-serviço-helios)
+  - [Usando docker para desenvolvimento](#usando-docker-para-desenvolvimento)
+  - [Alguns lembretes finais cruciais para o ambiente de produção](#alguns-lembretes-finais-cruciais-para-o-ambiente-de-produção)
 # Sistema de votação Helios como serviço de TIC
 
 O objetivo deste projeto era inicialmente atender a [necessidade N.47 do Plano Diretor de TI (PDTI) de 2013 do Instituto Federal de Santa Catarina (IFSC)](http://dtic.ifsc.edu.br/files/pdti2013-revisao02.pdf). No entanto, logo percebeu-se que outras instituições, especialmente as de ensino, poderiam se beneficiar das melhorias realizadas por nós no projeto original do [Ben Adida](https://github.com/benadida/helios-server). 
@@ -58,7 +82,7 @@ deb http://archive.ubuntu.com/ubuntu bionic main universe
 
 Depois é só fazer um `sudo apt update` e instalar os pacotes apresentados acima com o `sudo apt install`
 
-> A versão do Django utilizada nesta versão do Helios é a [1.8.18](https://docs.djangoproject.com/en/1.8/).
+> A versão do Django utilizada nesta versão do Helios é a [1.11.28](https://docs.djangoproject.com/en/1.11/).
 
 ## Preparação do ambiente para instalação do Helios
 
@@ -101,7 +125,7 @@ Todas as instruções abaixo devem ser executadas com o usuário `helios` e não
 
 Baixe o código fonte desse repositório:
 ```bash
-git clone https://github.com/shirlei/helios-server.git
+git clone https://github.com/ifsc/helios-server.git
 ```
 
 Não é obrigatório, mas é uma boa prática, criar um ambiente virtual python para a disponibilização do Helios, pois isso permite separar as dependências do projeto e não interferir em outros sistemas na mesma máquina. 
