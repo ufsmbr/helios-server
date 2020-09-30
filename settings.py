@@ -248,7 +248,7 @@ AUTH_TEMPLATE_BASE = "server_ui/templates/base.html"
 HELIOS_TEMPLATE_BASE = "server_ui/templates/base.html"
 AUTH_TEMPLATE_BASENONAV = "server_ui/templates/basenonav.html"
 HELIOS_TEMPLATE_BASENONAV = "server_ui/templates/basenonav.html"
-HELIOS_ADMIN_ONLY = False
+HELIOS_ADMIN_ONLY = True
 HELIOS_VOTERS_UPLOAD = True
 HELIOS_VOTERS_EMAIL = True
 
@@ -326,6 +326,7 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'django-cache'
+CELERY_RESULT_EXPIRES = 5184000  # 60 dias
 
 # see configuration example at https://pythonhosted.org/django-auth-ldap/example.html
 AUTH_LDAP_SERVER_URI = "ldap://ldap.forumsys.com" # replace by your Ldap URI
