@@ -79,11 +79,12 @@ Para seguir esse tutorial é necessário tenha alguma experiência com administr
 >```bash
 >deb http://archive.ubuntu.com/ubuntu bionic main universe
 >```
+> Depois é só fazer um `sudo apt update` e instalar os pacotes apresentados acima com o `sudo apt install`
+
 > 2) Pode ser necessário instalar também o pacote libq-dev em atualizações mais recentes do Ubuntu. A biblioteca psycopg2 foi atualizada para a versão 2.8.5 e há relatos de que esse pacote é necessário. 
 
-Depois é só fazer um `sudo apt update` e instalar os pacotes apresentados acima com o `sudo apt install`
 
-> A versão do Django utilizada nesta versão do Helios é a [1.11.28](https://docs.djangoproject.com/en/1.11/).
+> 3) A versão do Django utilizada nesta versão do Helios é a [1.11.28](https://docs.djangoproject.com/en/1.11/).
 
 ## Preparação do ambiente para instalação do Helios
 
