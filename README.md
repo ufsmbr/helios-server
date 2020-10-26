@@ -74,11 +74,12 @@ Para seguir esse tutorial é necessário tenha alguma experiência com administr
 * python-ldap python-dev libsasl2-dev libldap2-dev
   * para utilização do módulo de autenticação LDAP
 
-Para instalação dos pacotes apresentados acima foi necessário editar o arquivo  `/etc/apt/sources.list` e adicionar na seguinte linha a opção `universe`
-
-```bash
-deb http://archive.ubuntu.com/ubuntu bionic main universe
-```
+> Obs.: 
+> 1) Para instalação dos pacotes apresentados acima foi necessário editar o arquivo  `/etc/apt/sources.list` e adicionar na seguinte linha a opção `universe`:
+>```bash
+>deb http://archive.ubuntu.com/ubuntu bionic main universe
+>```
+> 2) Pode ser necessário instalar também o pacote libq-dev em atualizações mais recentes do Ubuntu. A biblioteca psycopg2 foi atualizada para a versão 2.8.5 e há relatos de que esse pacote é necessário. 
 
 Depois é só fazer um `sudo apt update` e instalar os pacotes apresentados acima com o `sudo apt install`
 
