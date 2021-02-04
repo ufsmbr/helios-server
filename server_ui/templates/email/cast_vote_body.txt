@@ -1,11 +1,20 @@
-<!doctype html>
-
-<html lang="pt-br">
-<title>{{default_from_name|safe}}</title>
-<head>
-    <meta charset="utf-8">
-</head>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <title>UFSM - Sistema de Notifica&ccedil;&atilde;o</title>
+        <!-- para alguns clientes de email (gmail) mostrar a formata&ccedil;&atilde;o CSS, o estilo deve estar definido inline -->
+    </head>
+ 
     <body>
+        <center>
+            <div style="font-family:Geneva, Arial, Helvetica, sans-serif; background-color:#FFFFFF; width:90%; border:1px solid #7A8D96;">
+                <div id="topo" style="text-align:left; background-color:#103060; padding: 8px 15px 8px 15px;">
+                    <span style="color: white; font-size:16px; text-align:left;">
+                        <strong>UFSM - Sistema de Notificação</strong>
+                    </span>
+                </div>
+                <div id="corpo" style="text-align:left; padding: 15px;">
+
         <p><strong>{{voter.name}}</strong>,
         <p>Seu voto foi depositado com sucesso para {{election.name}}</p>
         <p>O seu voto foi registrado com o seguinte código de confirmação:<br>
@@ -24,16 +33,23 @@
     <br><br>
     <p>O resultado da eleição será divulgado em horário e local conforme Edital.</p>
     <br><br>
+
 --
 <br>
-<font style="" size="1" face="verdana, sans-serif"><b style="">Instituto Federal de Santa Catarina - Reitoria</b>
-</font>
+<font style="" size="1" face="verdana, sans-serif"><b style="">Universidade Federal de Santa Maria - Centro de Processamento de Dados</b></font>
 <br>
-<font style="" size="1" face="verdana, sans-serif">
-    Rua 14 de Julho, 150, Coqueiros, Florianópolis / SC - CEP: 88075-010
-</font>
+<font style="" size="1" face="verdana, sans-serif">Av. Roraima nº 1000 - Camobi, Santa Maria - RS - CEP 97015-661</font>
 <br>
-<u><a href="http://www.ifsc.edu.br" target="_blank" style=""><font style="" face="verdana, sans-serif">www.ifsc.edu.br</font></a>
-</u>
-</body>
+<u><a href="http://www.ufsm.br" target="_blank" style=""><font style="" face="verdana, sans-serif">www.ufsm.br</font></a></u>
+
+ </div>
+                <div id="rodape" style="text-align:left; background-color:#103060; padding: 1px 15px 1px 15px;">
+                    <p style="color: white; font-size:10px; text-align:left;">
+                        N&atilde;o responda este e-mail.<br/>
+                        Esta &eacute; uma notifica&ccedil;&atilde;o gerada automaticamente, portanto, n&atilde;o deve ser respondida.<br/>
+                    </p>
+                </div>
+            </div>
+        </center>
+    </body>
 </html>

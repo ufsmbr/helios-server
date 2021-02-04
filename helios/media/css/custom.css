@@ -1,14 +1,14 @@
 .top-bar {
-	background-color:#eef1ec;
+	background-color:#21376bff;
 	height:100px;
 }
 #banner {
-	background:#0d4f4d;;
+	background:#21376bff;;
     color:#eef1ec;
 }
 
 #footer {
-	background:#0d4f4d;;
+	background:#21376bff;;
     bottom:0;
     position:absolute;
     width:100%;
@@ -16,39 +16,39 @@
     color:#eef1ec;
 }
 #progress_div td.selected {
-  background:#0d4f4d;
+  background:#21376bff;
   color:#eef1ec;
 }
 .btn-primary,a.btn,.btn-lg,.btn-primary {
-	background-color:#0d4f4d;
-	border-color:#0d4f4d;
+	background-color:#21376bff;
+	border-color:#21376bff;
 }
 .btn-primary:hover,#proceed_button{
-	background-color:#2f9e40;
-	border-color:#2f9e40;
+	background-color:#6495ed;
+	border-color:#6495ed;
 }
 a:hover, a:focus {
-  color: #2f9e40;
+  color: #6495ed;
   text-decoration: underline;
 }
 .nav-pills>li.active>a,.nav-pills>li.active>a:hover,.nav-pills>li.active>a:focus{
 	color:#fff;
-	background-color:#2f9e40;
+	background-color:#6495ed;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
   color: #eef1ec;
-  background-color: #2f9e40;
+  background-color: #6495ed;
   /*border-color: #0d4f4d;*/
 }
 
 .panel-primary > .panel-heading {
     color: #fff;
-    background-color: #0f5f5c;
-    border-color: #0f5f5c;
+    background-color: #6495ed;
+    border-color: #6495ed;
 }
 
 .panel-primary {
-    border-color: #0f5f5c;    
+    border-color: #6495ed;    
 }
 
 :focus{
@@ -56,7 +56,7 @@ a:hover, a:focus {
 }
 
 .top-bar-menu {
-	background-color: #0d4f4d;
+	background-color: #204c90ff;
 }
 
 img.logo {
@@ -80,22 +80,22 @@ html {
 }
 
 .panel-info {
-    border-color: #0f5f5c;
+    border-color: #6495ed;
 }
 .panel-info > .panel-heading {
-    background-color: #0f5f5c;
+    background-color: #21376bff;
     color: #eef1ec;
 }
 
 .alert-info {
-    background-color: #0f5f5c;
-    border-color: #0f5f5c;
+    background-color: #21376bff;
+    border-color: #21376bff;
     color: #eef1ec;
 }
 
 .alert-warning {
-    background-color: #0f5f5c;
-    border-color: #0f5f5c;
+    background-color: #21376bff;
+    border-color: #21376bff;
     color: #eef1ec;
 }
 input {
@@ -103,13 +103,13 @@ input {
 }
 
 a {
-    color: #2f9e40;
+    color: #21376bff;
     text-decoration: none;
 }
 
 div.selected {
     background: none;
-    border-color: #45981e;
+    border-color: #6495ed;
     border-width:1px;
     border-style:solid;
 }

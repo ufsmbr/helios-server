@@ -8,7 +8,7 @@
 	{{ form.non_field_errors }}
 	<input type="hidden" name="csrf_token" value="{{csrf_token}}" />
 		<div class="form-group {% if form.username.errors %}has-error{% endif %}">
-		<label for="username">{% trans "Username" %}</label>
+		<label for="username">{% trans "CPF" %}</label>
 		<input type="text" name="username" class="form-control" id="username" {% if form.username.value %} value="{{form.username.value}}" {% endif %} placeholder="{% trans "Username" %}">
 
 		</div> {{ form.username.errors }}
